@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBConnect;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,20 +14,22 @@ namespace Project1.Controllers
     public class ToDoListController : Controller
     {
         static DataTable dt = new DataTable();
+        DoOrDieServices db = new DoOrDieServices();
 
         // GET: ToDoList
         //ex URL localhost:XXXXX/ToDoList or //localhost:XXXXX/ToDoList/Index
         public ActionResult Index()
         {
-            Project1ToDoEntities entities = new Project1ToDoEntities();
             Debug.WriteLine("Entering Index");
-            return View(from ToDoList in entities.ToDoLists.Take(10) select ToDoList);
+            IEnumerable<DBConnect.ToDoList> lists = db.getLists();
+            return View(lists);
         }
 
         // GET: ToDoList/Details/5
         // NOT IMPLEMENTED 
         public ActionResult Details(int id)
         {
+           
             return View();
         }
 
@@ -34,13 +37,7 @@ namespace Project1.Controllers
         public ActionResult Create()
         {
             Debug.WriteLine("Entering Create");
-            ToDoList newList = new ToDoList();
-            Project1ToDoEntities entities = new Project1ToDoEntities();
-            newList.Name = "NewList";
-            newList.CategoryID = 2;
-            newList.IsComplete = false;
-            entities.ToDoLists.Add(newList);
-            entities.SaveChanges();
+            db.createList("New List");
             return RedirectToAction("Index");
         }
 
@@ -49,7 +46,11 @@ namespace Project1.Controllers
         //NOT IMPLEMENTED
         public ActionResult Edit(int id)
         {
-            return View();
+            Project1ToDoEntities entities = new Project1ToDoEntities();
+            Debug.WriteLine("Entering edit");
+            //IEnumerable<DBConnect.ToDoList> list = db.getListById(id);
+            return RedirectToAction("Index");
+            
         }
 
         // POST: ToDoList/Edit/5
@@ -57,6 +58,11 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            Project1ToDoEntities entities = new Project1ToDoEntities();
+            Debug.WriteLine("Entering Edit Post");
+            //IEnumerable<DBConnect.ToDoList> list = db.getListById(id);
+            
+
             try
             {
                 // TODO: Add update logic here
