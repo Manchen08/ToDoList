@@ -34,12 +34,15 @@ namespace DBConnect
 
         public IEnumerable<ToDoList> getLists()
         {
-            using (var entities = new Project1ToDoEntities())
-            {
-                IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
-                return (lists);
-            }
+            //using (var entities = new Project1ToDoEntities())
+            //{
+            //    IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
+            //    return (lists);
+            //}
 
+            Project1ToDoEntities entities = new Project1ToDoEntities();
+            IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
+            return (lists);
         }
 
         public ToDoList getListById(int id)
