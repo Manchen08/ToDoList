@@ -46,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "/Edit", new { id=item.ToDoListID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.ToDoListID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ToDoListID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ToDoListID })
         </td>

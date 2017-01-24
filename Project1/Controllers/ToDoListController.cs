@@ -46,10 +46,9 @@ namespace Project1.Controllers
         //NOT IMPLEMENTED
         public ActionResult Edit(int id)
         {
-            Project1ToDoEntities entities = new Project1ToDoEntities();
             Debug.WriteLine("Entering edit");
-            //IEnumerable<DBConnect.ToDoList> list = db.getListById(id);
-            return RedirectToAction("Index");
+            var list = db.getListById(id);
+            return View(list);
             
         }
 
