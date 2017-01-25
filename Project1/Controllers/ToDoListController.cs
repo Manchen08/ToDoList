@@ -25,14 +25,6 @@ namespace Project1.Controllers
             return View(lists);
         }
 
-        // GET: ToDoList/Details/5
-        // NOT IMPLEMENTED 
-        public ActionResult Details(int id)
-        {
-           
-            return View();
-        }
-
 
         public ActionResult Create()
         {
@@ -43,10 +35,9 @@ namespace Project1.Controllers
 
 
         // GET: ToDoList/Edit/5
-        //NOT IMPLEMENTED
         public ActionResult Edit(int id)
         {
-            Debug.WriteLine("Entering edit");
+            Debug.WriteLine("Entering GET edit");
             var list = db.getListById(id);
             return View(list);
             
@@ -57,10 +48,8 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            Project1ToDoEntities entities = new Project1ToDoEntities();
             Debug.WriteLine("Entering Edit Post");
             //IEnumerable<DBConnect.ToDoList> list = db.getListById(id);
-            
 
             try
             {
@@ -75,10 +64,11 @@ namespace Project1.Controllers
         }
 
         // GET: ToDoList/Delete/5
-        //NOT IMPLEMENTED
         public ActionResult Delete(int id)
         {
-            return View();
+            Debug.WriteLine("Entering GET Delete");
+            db.deleteListById(id);
+            return RedirectToAction("Index");
         }
 
         // POST: ToDoList/Delete/5

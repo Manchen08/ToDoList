@@ -37,7 +37,7 @@ namespace DBConnect
             //using (var entities = new Project1ToDoEntities())
             //{
             //    IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
-            //    return (lists);
+            //    return (lists.ToList());
             //}
 
             Project1ToDoEntities entities = new Project1ToDoEntities();
@@ -52,6 +52,16 @@ namespace DBConnect
                 return (entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault());
             }
 
+        }
+
+        public void updateListById(int id, string name, int?[] categories)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
+                list.Name = name;
+                entities.SaveChanges(); 
+            }
         }
         public void deleteListById(int id)
         {
