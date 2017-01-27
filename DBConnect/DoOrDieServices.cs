@@ -31,6 +31,25 @@ namespace DBConnect
             }
 
         }
+        public void createItem(int listID, string name)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                Item newItem = new Item();
+                DateTime createdDate = DateTime.Now;
+
+                newItem.Name = name;
+                newItem.ToDoListID = listID;
+                newItem.IsComplete = false;
+                newItem.CreatedDate = createdDate;
+
+                entities.Items.Add(newItem);
+                entities.SaveChanges();
+            }
+
+        }
+
+
 
         public IEnumerable<ToDoList> getLists()
         {
