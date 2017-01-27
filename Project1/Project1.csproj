@@ -202,6 +202,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ToDoListController.cs" />
@@ -320,6 +321,7 @@
     <Content Include="Views\Movies\Random.cshtml" />
     <Content Include="Views\ToDoList\Index.cshtml" />
     <Content Include="Views\ToDoList\Edit.cshtml" />
+    <Content Include="Views\Item\View_ToDo_Items.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
