@@ -39,8 +39,11 @@ namespace Project1.Controllers
         {
             Debug.WriteLine("Entering GET edit");
             var list = db.getListById(id);
-            return View(list);
-            
+            Project1.Models.ToDoListEditViewModel editModel = new Models.ToDoListEditViewModel();
+            editModel.list = db.getListById(id);
+            editModel.categories = db.getAllCategories().ToList();
+            return View(editModel);
+
         }
 
         // POST: ToDoList/Edit/5
