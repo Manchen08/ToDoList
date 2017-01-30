@@ -50,7 +50,6 @@ namespace DBConnect
         }
 
 
-
         public IEnumerable<ToDoList> getLists()
         {
             //using (var entities = new Project1ToDoEntities())
@@ -66,11 +65,14 @@ namespace DBConnect
 
         public ToDoList getListById(int id)
         {
-            using (var entities = new Project1ToDoEntities())
-            {
-                return (entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault());
-            }
+            //using (var entities = new Project1ToDoEntities())
+            //{
+            //    return (entities.ToDoLists.Where(x => x.ToDoListID == id).ToList());
+            //}
 
+            var entities = new Project1ToDoEntities();
+            ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
+            return list;
         }
 
         public void updateListById(int id, string name, int?[] categories)
@@ -79,7 +81,7 @@ namespace DBConnect
             {
                 ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
                 list.Name = name;
-                entities.SaveChanges(); 
+                entities.SaveChanges();
             }
         }
         public void deleteListById(int id)
@@ -112,9 +114,20 @@ namespace DBConnect
 
                 entities.SaveChanges();
             }
-            
+
         }
 
         #endregion Items
+
+        #region Categories
+        public IEnumerable<Category> getAllCategories()
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                return (entities.Categories).ToList();
+            }
+        }
+
+        #endregion
     }
 }
