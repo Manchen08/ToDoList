@@ -83,4 +83,9 @@ namespace Project1.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+    public class ToDoListEditViewModel
+    {
+        public DBConnect.ToDoList list { get; set; }
+        public IEnumerable<DBConnect.Category> categories { get; set; }
+    }
 }

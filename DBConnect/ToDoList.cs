@@ -18,6 +18,7 @@ namespace DBConnect
         public ToDoList()
         {
             this.Items = new HashSet<Item>();
+            this.Categories = new HashSet<Category>();
         }
     
         public int ToDoListID { get; set; }
@@ -30,5 +31,7 @@ namespace DBConnect
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }
