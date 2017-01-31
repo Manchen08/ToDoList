@@ -16,7 +16,7 @@ namespace DBConnect
         //
         public void createList(string name)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
                 ToDoList newList = new ToDoList();
                 DateTime createdDate = DateTime.Now;
@@ -33,7 +33,7 @@ namespace DBConnect
         }
         public void createItem(int listID, string name)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
                 Item newItem = new Item();
                 DateTime createdDate = DateTime.Now;
@@ -58,7 +58,7 @@ namespace DBConnect
             //    return (lists.ToList());
             //}
 
-            Project1ToDoEntities entities = new Project1ToDoEntities();
+            var entities = new Project1ToDoEntities1();
             IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
             return (lists);
         }
@@ -70,14 +70,14 @@ namespace DBConnect
             //    return (entities.ToDoLists.Where(x => x.ToDoListID == id).ToList());
             //}
 
-            var entities = new Project1ToDoEntities();
+            var entities = new Project1ToDoEntities1();
             ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
             return list;
         }
 
         public void updateListById(int id, string name, int?[] categories)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
                 ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
                 list.Name = name;
@@ -86,7 +86,7 @@ namespace DBConnect
         }
         public void deleteListById(int id)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
 
                 ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
@@ -100,7 +100,7 @@ namespace DBConnect
         #region Items
         public IEnumerable<Item> getItemByListId(int id)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
                 return (entities.Items.Where(x => x.ToDoListID == id)).ToList();
             }
@@ -108,7 +108,7 @@ namespace DBConnect
 
         public void deleteItemByItemId(int id)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
                 entities.Items.Remove(entities.Items.Where(x => x.ItemID == id).First());
 
@@ -122,7 +122,7 @@ namespace DBConnect
         #region Categories
         public IEnumerable<Category> getAllCategories()
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var entities = new Project1ToDoEntities1())
             {
                 return (entities.Categories).ToList();
             }

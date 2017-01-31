@@ -13,10 +13,10 @@ namespace DBConnect
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Project1ToDoEntities : DbContext
+    public partial class Project1ToDoEntities1 : DbContext
     {
-        public Project1ToDoEntities()
-            : base("name=Project1ToDoEntities")
+        public Project1ToDoEntities1()
+            : base("name=Project1ToDoEntities1")
         {
         }
     
@@ -28,5 +28,6 @@ namespace DBConnect
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ToDoList> ToDoLists { get; set; }
+        public virtual DbSet<ToDoListCategory> ToDoListCategories { get; set; }
     }
 }

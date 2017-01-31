@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ToDoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Project1ToDoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -35,15 +35,13 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CompletedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ToDoListCategories">
           <Key>
-            <PropertyRef Name="ToDoList_Id" />
-            <PropertyRef Name="Category_Id" />
+            <PropertyRef Name="ToDoListCategoryID" />
           </Key>
           <Property Name="ToDoList_Id" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
+          <Property Name="ToDoListCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK__ToDoListC__Categ__2B3F6F97">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -93,16 +91,11 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ToDoModelStoreContainer">
+        <EntityContainer Name="Project1ToDoModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoList" EntityType="Self.ToDoList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ToDoListCategories].[ToDoList_Id] AS [ToDoList_Id], 
-    [ToDoListCategories].[Category_Id] AS [Category_Id]
-    FROM [dbo].[ToDoListCategories] AS [ToDoListCategories]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__ToDoListC__Categ__2B3F6F97" Association="Self.FK__ToDoListC__Categ__2B3F6F97">
             <End Role="Category" EntitySet="Category" />
             <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
@@ -120,10 +113,11 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
             <End Role="ToDoList" EntitySet="ToDoList" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ToDoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Project1ToDoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -131,8 +125,8 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToDoListID" Type="Int32" />
+          <NavigationProperty Name="ToDoListCategories" Relationship="Self.FK__ToDoListC__Categ__2B3F6F97" FromRole="Category" ToRole="ToDoListCategories" />
           <NavigationProperty Name="ToDoLists" Relationship="Self.FK_ToDoList_Category" FromRole="Category" ToRole="ToDoList" />
-          <NavigationProperty Name="ToDoLists1" Relationship="ToDoModel.ToDoListCategories" FromRole="Category" ToRole="ToDoList" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -158,8 +152,30 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
           <Property Name="CompletedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Category" Relationship="Self.FK_ToDoList_Category" FromRole="ToDoList" ToRole="Category" />
           <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToDoList" FromRole="ToDoList" ToRole="Item" />
-          <NavigationProperty Name="Categories" Relationship="ToDoModel.ToDoListCategories" FromRole="ToDoList" ToRole="Category" />
+          <NavigationProperty Name="ToDoListCategories" Relationship="Self.FK__ToDoListC__ToDoL__2A4B4B5E" FromRole="ToDoList" ToRole="ToDoListCategories" />
         </EntityType>
+        <EntityType Name="ToDoListCategory">
+          <Key>
+            <PropertyRef Name="ToDoListCategoryID" />
+          </Key>
+          <Property Name="ToDoList_Id" Type="Int32" Nullable="false" />
+          <Property Name="Category_Id" Type="Int32" Nullable="false" />
+          <Property Name="ToDoListCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__ToDoListC__Categ__2B3F6F97" FromRole="ToDoListCategories" ToRole="Category" />
+          <NavigationProperty Name="ToDoList" Relationship="Self.FK__ToDoListC__ToDoL__2A4B4B5E" FromRole="ToDoListCategories" ToRole="ToDoList" />
+        </EntityType>
+        <Association Name="FK__ToDoListC__Categ__2B3F6F97">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="ToDoListCategories" Type="Self.ToDoListCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ToDoListCategories">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ToDoList_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="*" />
@@ -184,10 +200,27 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Project1ToDoEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK__ToDoListC__ToDoL__2A4B4B5E">
+          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="1" />
+          <End Role="ToDoListCategories" Type="Self.ToDoListCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDoList">
+              <PropertyRef Name="ToDoListID" />
+            </Principal>
+            <Dependent Role="ToDoListCategories">
+              <PropertyRef Name="ToDoList_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Project1ToDoEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="ToDoLists" EntityType="Self.ToDoList" />
+          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategory" />
+          <AssociationSet Name="FK__ToDoListC__Categ__2B3F6F97" Association="Self.FK__ToDoListC__Categ__2B3F6F97">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
+          </AssociationSet>
           <AssociationSet Name="FK_ToDoList_Category" Association="Self.FK_ToDoList_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="ToDoList" EntitySet="ToDoLists" />
@@ -196,23 +229,19 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
             <End Role="ToDoList" EntitySet="ToDoLists" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="ToDoListCategories" Association="ToDoModel.ToDoListCategories">
-            <End Role="Category" EntitySet="Categories" />
+          <AssociationSet Name="FK__ToDoListC__ToDoL__2A4B4B5E" Association="Self.FK__ToDoListC__ToDoL__2A4B4B5E">
             <End Role="ToDoList" EntitySet="ToDoLists" />
+            <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="ToDoListCategories">
-          <End Type="ToDoModel.Category" Role="Category" Multiplicity="*" />
-          <End Type="ToDoModel.ToDoList" Role="ToDoList" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ToDoModelStoreContainer" CdmEntityContainer="Project1ToDoEntities">
+        <EntityContainerMapping StorageEntityContainer="Project1ToDoModelStoreContainer" CdmEntityContainer="Project1ToDoEntities1">
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="ToDoModel.Category">
+            <EntityTypeMapping TypeName="Project1ToDoModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -221,7 +250,7 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="ToDoModel.Item">
+            <EntityTypeMapping TypeName="Project1ToDoModel.Item">
               <MappingFragment StoreEntitySet="Item">
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -233,7 +262,7 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ToDoLists">
-            <EntityTypeMapping TypeName="ToDoModel.ToDoList">
+            <EntityTypeMapping TypeName="Project1ToDoModel.ToDoList">
               <MappingFragment StoreEntitySet="ToDoList">
                 <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -244,14 +273,15 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ToDoListCategories" TypeName="ToDoModel.ToDoListCategories" StoreEntitySet="ToDoListCategories">
-            <EndProperty Name="ToDoList">
-              <ScalarProperty Name="ToDoListID" ColumnName="ToDoList_Id" />
-            </EndProperty>
-            <EndProperty Name="Category">
-              <ScalarProperty Name="CategoryID" ColumnName="Category_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="ToDoListCategories">
+            <EntityTypeMapping TypeName="Project1ToDoModel.ToDoListCategory">
+              <MappingFragment StoreEntitySet="ToDoListCategories">
+                <ScalarProperty Name="ToDoList_Id" ColumnName="ToDoList_Id" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="ToDoListCategoryID" ColumnName="ToDoListCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
