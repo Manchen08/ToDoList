@@ -9,15 +9,16 @@ namespace Project1.Controllers
 {
     public class MasterCategoryController : Controller
     {
+        DoOrDieServices db = new DoOrDieServices();
         // GET: MasterCategory
         public ActionResult Index()
         {
             //see if checkbox is checked
 
             //return lists with these CategoryID's checked
-
+            IEnumerable<DBConnect.Category> categories = db.getAllCategories();
             //return final view of these lists
-            return View("MasterCategory");
+            return View(categories);
         }
     }
 }
