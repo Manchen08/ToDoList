@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="Project1ToDoModel.ToDoList" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="Project1ToDoModel.FK_ToDoList_Category" ManuallyRouted="false" />
         <AssociationConnector Association="Project1ToDoModel.FK_Item_ToDoList" ManuallyRouted="false" />
+        <AssociationConnector Association="Project1ToDoModel.ToDoListCategories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

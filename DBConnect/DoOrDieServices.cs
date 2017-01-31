@@ -57,7 +57,7 @@ namespace DBConnect
             return list;
         }
 
-        public void updateListById(int id, string name, int?[] categories)
+        public void updateListById(int id, string name)
         {
             using (var entities = new Project1ToDoEntities())
             {

@@ -52,12 +52,12 @@ namespace Project1.Controllers
         public ActionResult Edit(int id, FormCollection collection)
         {
             Debug.WriteLine("Entering Edit Post");
-            //IEnumerable<DBConnect.ToDoList> list = db.getListById(id);
-
+            Debug.WriteLine(collection.Get("list.Name"));
+            var list = db.getListById(id);
             try
             {
                 // TODO: Add update logic here
-
+                db.updateListById(id, collection.Get("list.Name"));
                 return RedirectToAction("Index");
             }
             catch

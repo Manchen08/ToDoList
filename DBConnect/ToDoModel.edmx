@@ -35,15 +35,13 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CompletedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ToDoListCategories">
           <Key>
-            <PropertyRef Name="ToDoList_Id" />
-            <PropertyRef Name="Category_Id" />
+            <PropertyRef Name="ToDoListCategoryID" />
           </Key>
           <Property Name="ToDoList_Id" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
+          <Property Name="ToDoListCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK__ToDoListC__Categ__2B3F6F97">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -97,12 +95,7 @@ warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoList" EntityType="Self.ToDoList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ToDoListCategories].[ToDoList_Id] AS [ToDoList_Id], 
-    [ToDoListCategories].[Category_Id] AS [Category_Id]
-    FROM [dbo].[ToDoListCategories] AS [ToDoListCategories]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__ToDoListC__Categ__2B3F6F97" Association="Self.FK__ToDoListC__Categ__2B3F6F97">
             <End Role="Category" EntitySet="Category" />
             <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
