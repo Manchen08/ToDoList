@@ -34,7 +34,7 @@
     {
     <tr>
         <td>
-            @Html.ActionLink(item.Name, "../Item/View_ToDo_Items")
+            @Html.ActionLink(item.ToDoListID.ToString(), "../Item/View_ToDo_Items")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsComplete)

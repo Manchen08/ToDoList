@@ -66,6 +66,10 @@ namespace DBConnect
                 entities.SaveChanges();
             }
         }
+        public void updateListCategoriesById(int listId, int catId)
+        {
+
+        }
         public void deleteListById(int id)
         {
             using (var entities = new Project1ToDoEntities())
