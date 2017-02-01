@@ -67,39 +67,25 @@ namespace DBConnect
         }
         public void updateListCategoriesById(int listId, int catId, bool isChecked)
         {
-            using (var entities = new Project1ToDoEntities())
+            using (var db = new Project1ToDoEntities())
             {
-                ToDoListCategory testListCat = null;
+                var list = db.ToDoLists.Single(n => n.ToDoListID == listId);
 
-                try
+                if (isChecked)
                 {
-                    testListCat = entities.ToDoListCategories.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId).First();
-                }
-                catch (Exception)
-                {
-
-                    Debug.WriteLine("Not Found, ignore.");
-                }
-
-                if (isChecked && testListCat == null)
-                {
-                    ToDoListCategory newListCat = new ToDoListCategory();
-                    newListCat.Category_Id = catId;
-                    newListCat.ToDoList_Id = listId;
-                    entities.ToDoListCategories.Add(newListCat);
+                    var category = db.Categories.Single(n => n.CategoryID == catId);
+                    list.Categories.Add(category);
                 }
                 else
                 {
-                    if (testListCat != null && !isChecked)
-                    {
-                        entities.ToDoListCategories.Remove(testListCat);
-                    }
+                    var category = list.Categories.Single(n => n.CategoryID == catId);
+                    list.Categories.Remove(category);
                 }
-                    
 
-                entities.SaveChanges();
+                db.SaveChanges();
             }
         }
+
         public void deleteListById(int id)
         {
             using (var entities = new Project1ToDoEntities())

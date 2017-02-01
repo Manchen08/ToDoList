@@ -77,9 +77,6 @@
     <Compile Include="ToDoList.cs">
       <DependentUpon>DBConnect.tt</DependentUpon>
     </Compile>
-    <Compile Include="ToDoListCategory.cs">
-      <DependentUpon>DBConnect.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -4,14 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6211a24572834d049b6382f126889fb6" Name="Diagram1">
-        <EntityTypeShape EntityType="DBConnectModel.Category" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DBConnectModel.Item" Width="1.5" PointX="3" PointY="6.375" />
-        <EntityTypeShape EntityType="DBConnectModel.ToDoList" Width="1.5" PointX="0.75" PointY="3.625" />
-        <EntityTypeShape EntityType="DBConnectModel.ToDoListCategory" Width="1.5" PointX="3" PointY="3.625" />
-        <AssociationConnector Association="DBConnectModel.FK__ToDoListC__Categ__2B3F6F97" />
-        <AssociationConnector Association="DBConnectModel.FK_Item_ToDoList" />
-        <AssociationConnector Association="DBConnectModel.FK__ToDoListC__ToDoL__2A4B4B5E" />
+      <Diagram DiagramId="b902b5fbf95342018dc9adacc0ea573d" Name="Diagram1">
+        <EntityTypeShape EntityType="Project1ToDoModel.Category" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="Project1ToDoModel.Item" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="Project1ToDoModel.ToDoList" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="Project1ToDoModel.FK_Item_ToDoList" />
+        <AssociationConnector Association="Project1ToDoModel.ToDoListCategories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

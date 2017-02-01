@@ -28,6 +28,5 @@ namespace DBConnect
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ToDoList> ToDoLists { get; set; }
-        public virtual DbSet<ToDoListCategory> ToDoListCategories { get; set; }
     }
 }
