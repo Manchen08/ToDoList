@@ -53,17 +53,27 @@ namespace Project1.Controllers
         {
             Debug.WriteLine("Entering Edit Post");
             Debug.WriteLine(collection.Get("list.Name"));
+            Debug.WriteLine(collection.GetValues("list.categories"));
             var list = db.getListById(id);
             try
             {
-                // TODO: Add update logic here
-                db.updateListById(id, collection.Get("list.Name"));
-                return RedirectToAction("Index");
+
             }
             catch
             {
                 return View();
             }
+            int catCount = db.getAllCategories().Count();
+            for (int i = 1; i <= catCount; i++)
+            {
+
+                DBConnect.Category cat = db.getCategoryById(i);
+                bool isChecked = collection.Get(i.ToString()).Contains("true");
+                db.updateListCategoriesById(id, i, isChecked);
+            }
+
+            db.updateListById(id, collection.Get("list.Name"));
+            return RedirectToAction("Index");
         }
 
         // GET: ToDoList/Delete/5
