@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DBConnectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Project1ToDoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -30,13 +30,15 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="IsComplete" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ToDoListCategories">
           <Key>
-            <PropertyRef Name="ToDoListCategoriesID" />
+            <PropertyRef Name="ToDoList_Id" />
+            <PropertyRef Name="Category_Id" />
           </Key>
           <Property Name="ToDoList_Id" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
-          <Property Name="ToDoListCategoriesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK__ToDoListC__Categ__2B3F6F97">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -74,11 +76,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBConnectModelStoreContainer">
+        <EntityContainer Name="Project1ToDoModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoList" EntityType="Self.ToDoList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ToDoListCategories].[ToDoList_Id] AS [ToDoList_Id], 
+    [ToDoListCategories].[Category_Id] AS [Category_Id]
+    FROM [dbo].[ToDoListCategories] AS [ToDoListCategories]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__ToDoListC__Categ__2B3F6F97" Association="Self.FK__ToDoListC__Categ__2B3F6F97">
             <End Role="Category" EntitySet="Category" />
             <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
@@ -92,28 +99,11 @@
             <End Role="Item" EntitySet="Item" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DBConnectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Project1ToDoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="DBConnectModel.Category" />
-          <EntitySet Name="Items" EntityType="DBConnectModel.Item" />
-          <EntitySet Name="ToDoLists" EntityType="DBConnectModel.ToDoList" />
-          <EntitySet Name="ToDoListCategories" EntityType="DBConnectModel.ToDoListCategory" />
-          <AssociationSet Name="FK__ToDoListC__Categ__2B3F6F97" Association="DBConnectModel.FK__ToDoListC__Categ__2B3F6F97">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="ToDoListCategory" EntitySet="ToDoListCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Item_ToDoList" Association="DBConnectModel.FK_Item_ToDoList">
-            <End Role="ToDoList" EntitySet="ToDoLists" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ToDoListC__ToDoL__2A4B4B5E" Association="DBConnectModel.FK__ToDoListC__ToDoL__2A4B4B5E">
-            <End Role="ToDoList" EntitySet="ToDoLists" />
-            <End Role="ToDoListCategory" EntitySet="ToDoListCategories" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="Project1ToDoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -121,7 +111,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToDoListID" Type="Int32" />
-          <NavigationProperty Name="ToDoListCategories" Relationship="DBConnectModel.FK__ToDoListC__Categ__2B3F6F97" FromRole="Category" ToRole="ToDoListCategory" />
+          <NavigationProperty Name="ToDoLists" Relationship="Self.ToDoListCategories" FromRole="Category" ToRole="ToDoList" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -131,7 +121,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToDoListID" Type="Int32" Nullable="false" />
           <Property Name="IsComplete" Type="Boolean" />
-          <NavigationProperty Name="ToDoList" Relationship="DBConnectModel.FK_Item_ToDoList" FromRole="Item" ToRole="ToDoList" />
+          <NavigationProperty Name="ToDoList" Relationship="Self.FK_Item_ToDoList" FromRole="Item" ToRole="ToDoList" />
         </EntityType>
         <EntityType Name="ToDoList">
           <Key>
@@ -140,34 +130,12 @@
           <Property Name="ToDoListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsComplete" Type="Boolean" />
-          <NavigationProperty Name="Items" Relationship="DBConnectModel.FK_Item_ToDoList" FromRole="ToDoList" ToRole="Item" />
-          <NavigationProperty Name="ToDoListCategories" Relationship="DBConnectModel.FK__ToDoListC__ToDoL__2A4B4B5E" FromRole="ToDoList" ToRole="ToDoListCategory" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToDoList" FromRole="ToDoList" ToRole="Item" />
+          <NavigationProperty Name="Categories" Relationship="Self.ToDoListCategories" FromRole="ToDoList" ToRole="Category" />
         </EntityType>
-        <EntityType Name="ToDoListCategory">
-          <Key>
-            <PropertyRef Name="ToDoListCategoriesID" />
-          </Key>
-          <Property Name="ToDoList_Id" Type="Int32" Nullable="false" />
-          <Property Name="Category_Id" Type="Int32" Nullable="false" />
-          <Property Name="ToDoListCategoriesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Category" Relationship="DBConnectModel.FK__ToDoListC__Categ__2B3F6F97" FromRole="ToDoListCategory" ToRole="Category" />
-          <NavigationProperty Name="ToDoList" Relationship="DBConnectModel.FK__ToDoListC__ToDoL__2A4B4B5E" FromRole="ToDoListCategory" ToRole="ToDoList" />
-        </EntityType>
-        <Association Name="FK__ToDoListC__Categ__2B3F6F97">
-          <End Type="DBConnectModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="DBConnectModel.ToDoListCategory" Role="ToDoListCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="ToDoListCategory">
-              <PropertyRef Name="Category_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Item_ToDoList">
-          <End Type="DBConnectModel.ToDoList" Role="ToDoList" Multiplicity="1" />
-          <End Type="DBConnectModel.Item" Role="Item" Multiplicity="*" />
+          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ToDoList">
               <PropertyRef Name="ToDoListID" />
@@ -177,61 +145,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ToDoListC__ToDoL__2A4B4B5E">
-          <End Type="DBConnectModel.ToDoList" Role="ToDoList" Multiplicity="1" />
-          <End Type="DBConnectModel.ToDoListCategory" Role="ToDoListCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ToDoList">
-              <PropertyRef Name="ToDoListID" />
-            </Principal>
-            <Dependent Role="ToDoListCategory">
-              <PropertyRef Name="ToDoList_Id" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="ToDoListCategories">
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="*" />
         </Association>
-        </Schema>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="ToDoLists" EntityType="Self.ToDoList" />
+          <AssociationSet Name="FK_Item_ToDoList" Association="Self.FK_Item_ToDoList">
+            <End Role="ToDoList" EntitySet="ToDoLists" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="ToDoListCategories" Association="Self.ToDoListCategories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="ToDoList" EntitySet="ToDoLists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DBConnectModelStoreContainer" CdmEntityContainer="Project1ToDoEntities">
+        <EntityContainerMapping StorageEntityContainer="Project1ToDoModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="DBConnectModel.Category">
+            <EntityTypeMapping TypeName="Project1ToDoModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="DBConnectModel.Item">
+            <EntityTypeMapping TypeName="Project1ToDoModel.Item">
               <MappingFragment StoreEntitySet="Item">
-                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
-                <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ToDoLists">
-            <EntityTypeMapping TypeName="DBConnectModel.ToDoList">
+            <EntityTypeMapping TypeName="Project1ToDoModel.ToDoList">
               <MappingFragment StoreEntitySet="ToDoList">
-                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ToDoListCategories">
-            <EntityTypeMapping TypeName="DBConnectModel.ToDoListCategory">
-              <MappingFragment StoreEntitySet="ToDoListCategories">
-                <ScalarProperty Name="ToDoListCategoriesID" ColumnName="ToDoListCategoriesID" />
-                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
-                <ScalarProperty Name="ToDoList_Id" ColumnName="ToDoList_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="ToDoListCategories" TypeName="Project1ToDoModel.ToDoListCategories" StoreEntitySet="ToDoListCategories">
+            <EndProperty Name="Category">
+              <ScalarProperty Name="CategoryID" ColumnName="Category_Id" />
+            </EndProperty>
+            <EndProperty Name="ToDoList">
+              <ScalarProperty Name="ToDoListID" ColumnName="ToDoList_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

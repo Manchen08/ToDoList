@@ -90,7 +90,7 @@ namespace DBConnect
                 }
                 else
                 {
-                    if (testListCat != null)
+                    if (testListCat != null && !isChecked)
                     {
                         entities.ToDoListCategories.Remove(testListCat);
                     }

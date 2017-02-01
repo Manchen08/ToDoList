@@ -16,7 +16,7 @@ namespace DBConnect
     {
         public int ToDoList_Id { get; set; }
         public int Category_Id { get; set; }
-        public int ToDoListCategoryID { get; set; }
+        public int ToDoListCategoriesID { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual ToDoList ToDoList { get; set; }

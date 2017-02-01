@@ -17,9 +17,7 @@ namespace DBConnect
         public int ItemID { get; set; }
         public string Name { get; set; }
         public int ToDoListID { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<bool> IsComplete { get; set; }
-        public Nullable<System.DateTime> CompletedDate { get; set; }
     
         public virtual ToDoList ToDoList { get; set; }
     }
