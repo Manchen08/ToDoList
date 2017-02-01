@@ -16,14 +16,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsComplete)
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompletedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
+            @Html.DisplayNameFor(model => model.Categories)
         </th>
         <th></th>
     </tr>
@@ -34,19 +29,13 @@
     {
     <tr>
         <td>
-            @Html.ActionLink(item.ToDoListID.ToString(), "../Item/View_ToDo_Items")
+            @Html.ActionLink(item.Name, "../Item/View_ToDo_Items")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsComplete)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompletedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
+            
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ToDoListID }) |

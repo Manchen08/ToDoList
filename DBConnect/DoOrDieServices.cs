@@ -23,7 +23,6 @@ namespace DBConnect
 
                 newList.Name = name;
                 newList.IsComplete = false;
-                newList.CreatedDate = createdDate;
 
                 entities.ToDoLists.Add(newList);
                 entities.SaveChanges();
@@ -66,9 +65,19 @@ namespace DBConnect
                 entities.SaveChanges();
             }
         }
-        public void updateListCategoriesById(int listId, int catId)
+        public void updateListCategoriesById(int listId, int catId, bool isChecked)
         {
+            using (var entities = new Project1ToDoEntities())
+            {
+                ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == listId).FirstOrDefault();
+                Category cat = entities.Categories.Where(x => x.CategoryID == catId).FirstOrDefault();
+                if (isChecked)
+                    list.Categories.Add(cat);
+                else
+                    list.Categories.Remove(cat);
 
+                entities.SaveChanges();
+            }
         }
         public void deleteListById(int id)
         {
@@ -112,7 +121,6 @@ namespace DBConnect
                 newItem.Name = name;
                 newItem.ToDoListID = listID;
                 newItem.IsComplete = false;
-                newItem.CreatedDate = createdDate;
 
                 entities.Items.Add(newItem);
                 entities.SaveChanges();
@@ -128,6 +136,14 @@ namespace DBConnect
             using (var entities = new Project1ToDoEntities())
             {
                 return (entities.Categories).ToList();
+            }
+        }
+
+        public Category getCategoryById(int id)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                return (entities.Categories.Where(x => x.CategoryID == id).FirstOrDefault());
             }
         }
 
