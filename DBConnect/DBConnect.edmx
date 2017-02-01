@@ -120,7 +120,6 @@
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ToDoListID" Type="Int32" />
           <NavigationProperty Name="ToDoListCategories" Relationship="DBConnectModel.FK__ToDoListC__Categ__2B3F6F97" FromRole="Category" ToRole="ToDoListCategory" />
         </EntityType>
         <EntityType Name="Item">
@@ -198,7 +197,6 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="DBConnectModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
               </MappingFragment>

@@ -22,7 +22,6 @@ namespace DBConnect
     
         public int CategoryID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> ToDoListID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToDoListCategory> ToDoListCategories { get; set; }
