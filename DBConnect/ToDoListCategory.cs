@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Project1
+namespace DBConnect
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class ToDoListCategory
     {
-        public int ItemID { get; set; }
-        public string Name { get; set; }
-        public int ToDoListID { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<bool> IsComplete { get; set; }
-        public Nullable<System.DateTime> CompletedDate { get; set; }
+        public int ToDoList_Id { get; set; }
+        public int Category_Id { get; set; }
+        public int ToDoListCategoryID { get; set; }
     
+        public virtual Category Category { get; set; }
         public virtual ToDoList ToDoList { get; set; }
     }
 }

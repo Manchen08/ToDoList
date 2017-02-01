@@ -40,7 +40,7 @@ namespace DBConnect
             //}
 
             Project1ToDoEntities entities = new Project1ToDoEntities();
-            IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
+            IEnumerable<ToDoList> lists = entities.ToDoLists.ToList();
             return (lists);
         }
 
@@ -69,12 +69,33 @@ namespace DBConnect
         {
             using (var entities = new Project1ToDoEntities())
             {
-                ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == listId).FirstOrDefault();
-                Category cat = entities.Categories.Where(x => x.CategoryID == catId).FirstOrDefault();
-                if (isChecked)
-                    list.Categories.Add(cat);
+                ToDoListCategory testListCat = null;
+
+                try
+                {
+                    testListCat = entities.ToDoListCategories.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId).First();
+                }
+                catch (Exception)
+                {
+
+                    Debug.WriteLine("Not Found, ignore.");
+                }
+
+                if (isChecked && testListCat == null)
+                {
+                    ToDoListCategory newListCat = new ToDoListCategory();
+                    newListCat.Category_Id = catId;
+                    newListCat.ToDoList_Id = listId;
+                    entities.ToDoListCategories.Add(newListCat);
+                }
                 else
-                    list.Categories.Remove(cat);
+                {
+                    if (testListCat != null)
+                    {
+                        entities.ToDoListCategories.Remove(testListCat);
+                    }
+                }
+                    
 
                 entities.SaveChanges();
             }

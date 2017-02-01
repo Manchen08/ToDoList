@@ -197,9 +197,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Category.cs">
-      <DependentUpon>Project1ToDo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
@@ -209,9 +206,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Item.cs">
-      <DependentUpon>Project1ToDo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -219,26 +213,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\ToDoList.cs" />
-    <Compile Include="Project1ToDo.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Project1ToDo.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Project1ToDo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Project1ToDo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Project1ToDo.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Project1ToDo.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ToDoList.cs">
-      <DependentUpon>Project1ToDo.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-cerulean.css" />
@@ -248,27 +224,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Project1ToDo.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Project1ToDo.edmx</DependentUpon>
-      <LastGenOutput>Project1ToDo.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Project1ToDo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Project1ToDo.edmx</DependentUpon>
-      <LastGenOutput>Project1ToDo.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Project1ToDo.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Project1ToDo.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Project1ToDo.edmx.diagram">
-      <DependentUpon>Project1ToDo.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -52,59 +52,60 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs">
-      <DependentUpon>ToDoModel.tt</DependentUpon>
+      <DependentUpon>DBConnect.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBConnect.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBConnect.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBConnect.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBConnect.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBConnect.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBConnect.edmx</DependentUpon>
     </Compile>
     <Compile Include="DoOrDieServices.cs" />
     <Compile Include="Item.cs">
-      <DependentUpon>ToDoModel.tt</DependentUpon>
+      <DependentUpon>DBConnect.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToDoList.cs">
-      <DependentUpon>ToDoModel.tt</DependentUpon>
+      <DependentUpon>DBConnect.tt</DependentUpon>
     </Compile>
-    <Compile Include="ToDoModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToDoModel.Context.tt</DependentUpon>
+    <Compile Include="ToDoListCategory.cs">
+      <DependentUpon>DBConnect.tt</DependentUpon>
     </Compile>
-    <Compile Include="ToDoModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToDoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ToDoModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToDoModel.edmx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="ToDoModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ToDoModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="packages.config" />
-    <None Include="ToDoModel.edmx.diagram">
-      <DependentUpon>ToDoModel.edmx</DependentUpon>
+    <EntityDeploy Include="DBConnect.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBConnect.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DBConnect.edmx.diagram">
+      <DependentUpon>DBConnect.edmx</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ToDoModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ToDoModel.edmx</DependentUpon>
-      <LastGenOutput>ToDoModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ToDoModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ToDoModel.edmx</DependentUpon>
-      <LastGenOutput>ToDoModel.cs</LastGenOutput>
-    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBConnect.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBConnect.edmx</DependentUpon>
+      <LastGenOutput>DBConnect.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBConnect.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBConnect.edmx</DependentUpon>
+      <LastGenOutput>DBConnect.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
