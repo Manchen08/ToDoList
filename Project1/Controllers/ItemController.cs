@@ -37,7 +37,7 @@ namespace Project1.Controllers
         public ActionResult Create(int id)
         {
             Debug.WriteLine("Entering Create");
-            IEnumerable<Item> view = db.getItemByListId(id);
+            IEnumerable<DBConnect.Item> view = db.getItemByListId(id);
             return View(view);
         }
        

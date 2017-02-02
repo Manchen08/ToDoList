@@ -116,10 +116,14 @@ namespace DBConnect
         #region Items
         public IEnumerable<Item> getItemByListId(int id)
         {
-            using (var entities = new Project1ToDoEntities())
-            {
-                return (entities.Items.Where(x => x.ToDoListID == id)).ToList();
-            }
+            //using (var entities = new Project1ToDoEntities())
+            //{
+            //    return (entities.Items.Where(x => x.ToDoListID == id).ToList());
+
+            //}
+            var entities = new Project1ToDoEntities();
+            var items = entities.Items.Where(x => x.ToDoListID == id).ToList();
+            return items;
         }
 
         public void deleteItemByItemId(int id)
