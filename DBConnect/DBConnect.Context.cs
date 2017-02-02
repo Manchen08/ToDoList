@@ -13,10 +13,10 @@ namespace DBConnect
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Project1ToDoEntities1 : DbContext
+    public partial class Project1ToDoEntities : DbContext
     {
-        public Project1ToDoEntities1()
-            : base("name=Project1ToDoEntities1")
+        public Project1ToDoEntities()
+            : base("name=Project1ToDoEntities")
         {
         }
     

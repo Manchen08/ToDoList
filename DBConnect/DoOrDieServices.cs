@@ -16,14 +16,13 @@ namespace DBConnect
         //
         public void createList(string name)
         {
-            using (var entities = new Project1ToDoEntities1())
+            using (var entities = new Project1ToDoEntities())
             {
                 ToDoList newList = new ToDoList();
                 DateTime createdDate = DateTime.Now;
 
                 newList.Name = name;
                 newList.IsComplete = false;
-                newList.CreatedDate = createdDate;
 
                 entities.ToDoLists.Add(newList);
                 entities.SaveChanges();
@@ -31,24 +30,6 @@ namespace DBConnect
             }
 
         }
-        public void createItem(int listID, string name)
-        {
-            using (var entities = new Project1ToDoEntities1())
-            {
-                Item newItem = new Item();
-                DateTime createdDate = DateTime.Now;
-
-                newItem.Name = name;
-                newItem.ToDoListID = listID;
-                newItem.IsComplete = false;
-                newItem.CreatedDate = createdDate;
-
-                entities.Items.Add(newItem);
-                entities.SaveChanges();
-            }
-
-        }
-
 
         public IEnumerable<ToDoList> getLists()
         {
@@ -58,8 +39,8 @@ namespace DBConnect
             //    return (lists.ToList());
             //}
 
-            var entities = new Project1ToDoEntities1();
-            IEnumerable<ToDoList> lists = from ToDoList in entities.ToDoLists select ToDoList;
+            Project1ToDoEntities entities = new Project1ToDoEntities();
+            IEnumerable<ToDoList> lists = entities.ToDoLists.ToList();
             return (lists);
         }
 
@@ -70,23 +51,58 @@ namespace DBConnect
             //    return (entities.ToDoLists.Where(x => x.ToDoListID == id).ToList());
             //}
 
-            var entities = new Project1ToDoEntities1();
+            var entities = new Project1ToDoEntities();
             ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
             return list;
         }
 
-        public void updateListById(int id, string name, int?[] categories)
+        public void updateListById(int id, string name)
         {
-            using (var entities = new Project1ToDoEntities1())
+            using (var entities = new Project1ToDoEntities())
             {
                 ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
                 list.Name = name;
                 entities.SaveChanges();
             }
         }
+        public void updateListCategoriesById(int listId, int catId, bool isChecked)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                ToDoListCategory testListCat = null;
+
+                try
+                {
+                    testListCat = entities.ToDoListCategories.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId).First();
+                }
+                catch (Exception)
+                {
+
+                    Debug.WriteLine("Not Found, ignore.");
+                }
+
+                if (isChecked && testListCat == null)
+                {
+                    ToDoListCategory newListCat = new ToDoListCategory();
+                    newListCat.Category_Id = catId;
+                    newListCat.ToDoList_Id = listId;
+                    entities.ToDoListCategories.Add(newListCat);
+                }
+                else
+                {
+                    if (testListCat != null && !isChecked)
+                    {
+                        entities.ToDoListCategories.Remove(testListCat);
+                    }
+                }
+                    
+
+                entities.SaveChanges();
+            }
+        }
         public void deleteListById(int id)
         {
-            using (var entities = new Project1ToDoEntities1())
+            using (var entities = new Project1ToDoEntities())
             {
 
                 ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
@@ -100,7 +116,7 @@ namespace DBConnect
         #region Items
         public IEnumerable<Item> getItemByListId(int id)
         {
-            using (var entities = new Project1ToDoEntities1())
+            using (var entities = new Project1ToDoEntities())
             {
                 return (entities.Items.Where(x => x.ToDoListID == id)).ToList();
             }
@@ -108,10 +124,26 @@ namespace DBConnect
 
         public void deleteItemByItemId(int id)
         {
-            using (var entities = new Project1ToDoEntities1())
+            using (var entities = new Project1ToDoEntities())
             {
                 entities.Items.Remove(entities.Items.Where(x => x.ItemID == id).First());
 
+                entities.SaveChanges();
+            }
+
+        }
+        public void createItem(int listID, string name)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                Item newItem = new Item();
+                DateTime createdDate = DateTime.Now;
+
+                newItem.Name = name;
+                newItem.ToDoListID = listID;
+                newItem.IsComplete = false;
+
+                entities.Items.Add(newItem);
                 entities.SaveChanges();
             }
 
@@ -122,9 +154,17 @@ namespace DBConnect
         #region Categories
         public IEnumerable<Category> getAllCategories()
         {
-            using (var entities = new Project1ToDoEntities1())
+            using (var entities = new Project1ToDoEntities())
             {
                 return (entities.Categories).ToList();
+            }
+        }
+
+        public Category getCategoryById(int id)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                return (entities.Categories.Where(x => x.CategoryID == id).FirstOrDefault());
             }
         }
 

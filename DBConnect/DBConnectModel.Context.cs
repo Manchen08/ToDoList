@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Project1
+namespace DBConnect
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Project1ToDoEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public Project1ToDoEntities()
-            : base("name=Project1ToDoEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

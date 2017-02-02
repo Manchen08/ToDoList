@@ -20,9 +20,7 @@
           <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="ToDoListID" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="IsComplete" Type="bit" />
-          <Property Name="CompletedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ToDoList">
           <Key>
@@ -30,11 +28,42 @@
           </Key>
           <Property Name="ToDoListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="CategoryID" Type="int" />
           <Property Name="IsComplete" Type="bit" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="CompletedDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Project1ToDo.dbo.ToDoListCategories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ToDoListCategories">
+          <Key>
+            <PropertyRef Name="ToDoList_Id" />
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="ToDoList_Id" Type="int" Nullable="false" />
+          <Property Name="Category_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ToDoListC__Categ__2B3F6F97">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="ToDoListCategories" Type="Self.ToDoListCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ToDoListCategories">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ToDoListC__ToDoL__2A4B4B5E">
+          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="1" />
+          <End Role="ToDoListCategories" Type="Self.ToDoListCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDoList">
+              <PropertyRef Name="ToDoListID" />
+            </Principal>
+            <Dependent Role="ToDoListCategories">
+              <PropertyRef Name="ToDoList_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Item_ToDoList">
           <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -47,29 +76,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToDoList_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="ToDoList">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Project1ToDoModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoList" EntityType="Self.ToDoList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToDoListCategories" EntityType="Self.ToDoListCategories" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ToDoListCategories].[ToDoList_Id] AS [ToDoList_Id], 
+    [ToDoListCategories].[Category_Id] AS [Category_Id]
+    FROM [dbo].[ToDoListCategories] AS [ToDoListCategories]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__ToDoListC__Categ__2B3F6F97" Association="Self.FK__ToDoListC__Categ__2B3F6F97">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ToDoListC__ToDoL__2A4B4B5E" Association="Self.FK__ToDoListC__ToDoL__2A4B4B5E">
+            <End Role="ToDoList" EntitySet="ToDoList" />
+            <End Role="ToDoListCategories" EntitySet="ToDoListCategories" />
+          </AssociationSet>
           <AssociationSet Name="FK_Item_ToDoList" Association="Self.FK_Item_ToDoList">
             <End Role="ToDoList" EntitySet="ToDoList" />
             <End Role="Item" EntitySet="Item" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToDoList_Category" Association="Self.FK_ToDoList_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="ToDoList" EntitySet="ToDoList" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -84,7 +111,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToDoListID" Type="Int32" />
-          <NavigationProperty Name="ToDoLists" Relationship="Self.FK_ToDoList_Category" FromRole="Category" ToRole="ToDoList" />
+          <NavigationProperty Name="ToDoLists" Relationship="Self.ToDoListCategories" FromRole="Category" ToRole="ToDoList" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -93,9 +120,7 @@
           <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToDoListID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="IsComplete" Type="Boolean" />
-          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ToDoList" Relationship="Self.FK_Item_ToDoList" FromRole="Item" ToRole="ToDoList" />
         </EntityType>
         <EntityType Name="ToDoList">
@@ -104,25 +129,10 @@
           </Key>
           <Property Name="ToDoListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" />
           <Property Name="IsComplete" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_ToDoList_Category" FromRole="ToDoList" ToRole="Category" />
           <NavigationProperty Name="Items" Relationship="Self.FK_Item_ToDoList" FromRole="ToDoList" ToRole="Item" />
+          <NavigationProperty Name="Categories" Relationship="Self.ToDoListCategories" FromRole="ToDoList" ToRole="Category" />
         </EntityType>
-        <Association Name="FK_ToDoList_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="ToDoList">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Item_ToDoList">
           <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -135,17 +145,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Project1ToDoEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="ToDoListCategories">
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Role="ToDoList" Type="Self.ToDoList" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="ToDoLists" EntityType="Self.ToDoList" />
-          <AssociationSet Name="FK_ToDoList_Category" Association="Self.FK_ToDoList_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="ToDoList" EntitySet="ToDoLists" />
-          </AssociationSet>
           <AssociationSet Name="FK_Item_ToDoList" Association="Self.FK_Item_ToDoList">
             <End Role="ToDoList" EntitySet="ToDoLists" />
             <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="ToDoListCategories" Association="Self.ToDoListCategories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="ToDoList" EntitySet="ToDoLists" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -153,7 +167,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Project1ToDoModelStoreContainer" CdmEntityContainer="Project1ToDoEntities">
+        <EntityContainerMapping StorageEntityContainer="Project1ToDoModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Project1ToDoModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -169,9 +183,7 @@
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
-                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -180,13 +192,18 @@
               <MappingFragment StoreEntitySet="ToDoList">
                 <ScalarProperty Name="ToDoListID" ColumnName="ToDoListID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="ToDoListCategories" TypeName="Project1ToDoModel.ToDoListCategories" StoreEntitySet="ToDoListCategories">
+            <EndProperty Name="Category">
+              <ScalarProperty Name="CategoryID" ColumnName="Category_Id" />
+            </EndProperty>
+            <EndProperty Name="ToDoList">
+              <ScalarProperty Name="ToDoListID" ColumnName="ToDoList_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

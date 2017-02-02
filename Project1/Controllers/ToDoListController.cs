@@ -41,7 +41,8 @@ namespace Project1.Controllers
             var list = db.getListById(id);
             Project1.Models.ToDoListEditViewModel editModel = new Models.ToDoListEditViewModel();
             editModel.list = db.getListById(id);
-            editModel.categories = db.getAllCategories();
+            editModel.categories = db.getAllCategories().ToList();
+
             return View(editModel);
 
         }
@@ -52,18 +53,28 @@ namespace Project1.Controllers
         public ActionResult Edit(int id, FormCollection collection)
         {
             Debug.WriteLine("Entering Edit Post");
-            //IEnumerable<DBConnect.ToDoList> list = db.getListById(id);
-
+            Debug.WriteLine(collection.Get("list.Name"));
+            Debug.WriteLine(collection.GetValues("list.categories"));
+            var list = db.getListById(id);
             try
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+            int catCount = db.getAllCategories().Count();
+            for (int i = 1; i <= catCount; i++)
+            {
+
+                DBConnect.Category cat = db.getCategoryById(i);
+                bool isChecked = collection.Get(i.ToString()).Contains("true");
+                db.updateListCategoriesById(id, i, isChecked);
+            }
+
+            db.updateListById(id, collection.Get("list.Name"));
+            return RedirectToAction("Index");
         }
 
         // GET: ToDoList/Delete/5
