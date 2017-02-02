@@ -116,14 +116,10 @@ namespace DBConnect
         #region Items
         public IEnumerable<Item> getItemByListId(int id)
         {
-            //using (var entities = new Project1ToDoEntities())
-            //{
-            //    return (entities.Items.Where(x => x.ToDoListID == id).ToList());
-
-            //}
-            var entities = new Project1ToDoEntities();
-            var items = entities.Items.Where(x => x.ToDoListID == id).ToList();
-            return items;
+            using (var entities = new Project1ToDoEntities())
+            {
+                return (entities.Items.Where(x => x.ToDoListID == id)).ToList();
+            }
         }
 
         public void deleteItemByItemId(int id)
@@ -156,6 +152,20 @@ namespace DBConnect
         #endregion Items
 
         #region Categories
+        public void createCategory(string name)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                var newCategory = new Category();
+
+                newCategory.Name = name;
+
+                entities.Categories.Add(newCategory);
+                entities.SaveChanges();
+            }
+
+        }
+
         public IEnumerable<Category> getAllCategories()
         {
             using (var entities = new Project1ToDoEntities())
@@ -170,6 +180,17 @@ namespace DBConnect
             {
                 return (entities.Categories.Where(x => x.CategoryID == id).FirstOrDefault());
             }
+        }
+
+        public void deleteCategoryByCategoryId(int id)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                entities.Categories.Remove(entities.Categories.Where(x => x.CategoryID == id).First());
+
+                entities.SaveChanges();
+            }
+
         }
 
         #endregion
