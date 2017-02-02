@@ -19,6 +19,25 @@ namespace Project1.Controllers
             IEnumerable<DBConnect.Category> categories = db.getAllCategories();
             //return final view of these lists
             return View(categories);
+
         }
+
+
+        /*private IList<SelectListItem> SearchByCategories()
+        {
+            return new List<SelectListItem>
+            {
+
+                new SelectListItem {Text = i, Value = i},
+            };
+            return new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Apple", Value = "Apple"},
+                new SelectListItem {Text = "Pear", Value = "Pear"},
+                new SelectListItem {Text = "Banana", Value = "Banana"},
+                new SelectListItem {Text = "Orange", Value = "Orange"},
+            };
+        }*/
+
     }
 }
