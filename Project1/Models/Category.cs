@@ -13,6 +13,5 @@ namespace Models
         string Name { get; set; }
         List<ToDoList> Lists { get; set; }
 
-        
     }
 }

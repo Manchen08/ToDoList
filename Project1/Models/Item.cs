@@ -14,5 +14,6 @@ namespace Models
         public DateTime CreatedDate { get; set; }
         public DateTime CompletedDate { get; set; }
         public bool IsComplete { get; set; }
+
     }
 }

@@ -19,7 +19,6 @@ namespace Models
 
         public ToDoList()
         {
-
         }
 
         public ToDoList(Category cat)
