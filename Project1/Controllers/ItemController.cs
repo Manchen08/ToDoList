@@ -18,9 +18,10 @@ namespace Project1.Controllers
 
         // GET: Item
         //ex URL localhost:XXXXX/Item or //localhost:XXXXX/Item/Index
-        public ActionResult Index(int listId)
+        public ActionResult Index()
         {
             Debug.WriteLine("Entering Index");
+            int listId = 1;
             IEnumerable<DBConnect.Item> lists = db.getItemByListId(listId);
             return View(lists);
         }
