@@ -45,6 +45,14 @@ namespace Project1.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            Debug.WriteLine("Entering GET post edit");
+            db.updateCategoryById(id, collection.Get("Name"));
+            return RedirectToAction("Index");
+        }
+
         // GET: ToDoList/Delete/5
         public ActionResult Delete(int id)
         {

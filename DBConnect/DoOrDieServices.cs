@@ -165,6 +165,15 @@ namespace DBConnect
             }
 
         }
+        public void updateCategoryById(int id, string name)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                var list = entities.Categories.Where(x => x.CategoryID == id).FirstOrDefault();
+                list.Name = name;
+                entities.SaveChanges();
+            }
+        }
 
         public IEnumerable<Category> getAllCategories()
         {

@@ -56,14 +56,7 @@ namespace Project1.Controllers
             Debug.WriteLine(collection.Get("list.Name"));
             Debug.WriteLine(collection.GetValues("list.categories"));
             var list = db.getListById(id);
-            try
-            {
 
-            }
-            catch
-            {
-                return View();
-            }
             int catCount = db.getAllCategories().Count();
             for (int i = 1; i <= catCount; i++)
             {
@@ -75,6 +68,7 @@ namespace Project1.Controllers
 
             db.updateListById(id, collection.Get("list.Name"));
             return RedirectToAction("Index");
+            
         }
 
         // GET: ToDoList/Delete/5

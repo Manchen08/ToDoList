@@ -11,7 +11,6 @@
           </Key>
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="ToDoListID" Type="int" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
