@@ -34,11 +34,11 @@ namespace Project1.Controllers
   
 
        // get: item/create
-        public ActionResult Create(int listID)
+        public ActionResult Create(int id)
         {
             Debug.WriteLine("Entering Create");
-            db.createItem(listID, "New Item");
-            return RedirectToAction("Index");
+            IEnumerable<Item> view = db.getItemByListId(id);
+            return View(view);
         }
        
         
