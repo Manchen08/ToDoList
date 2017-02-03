@@ -35,11 +35,9 @@ namespace Project1.Controllers
         // GET: ToDoList/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id.ToString().Equals(""))
-                id = 1;
+            //if (id.ToString().Equals(""))
+            //    id = 1;
             Debug.WriteLine("Entering GET edit");
-            //DBConnect.Category editModel = new DBConnect.Category();
-            //editModel = db.getCategoryById(id);
             var category = db.getCategoryById(id);
             return View(category);
 
