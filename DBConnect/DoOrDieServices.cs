@@ -106,6 +106,22 @@ namespace DBConnect
             {
 
                 ToDoList list = entities.ToDoLists.Where(x => x.ToDoListID == id).FirstOrDefault();
+
+                // Remove all associated items
+                var items = entities.Items.Where(x => x.ToDoListID == id);
+                foreach (var item in items)
+                {
+                    entities.Items.Remove(item);
+                }
+
+                // Remove all associated ToDoListCategories
+                var categories = entities.ToDoListCategories.Where(x => x.ToDoList_Id == id);
+                foreach (var category in categories)
+                {
+                    entities.ToDoListCategories.Remove(category);
+                }
+
+                // Finally remove list
                 entities.ToDoLists.Remove(list);
                 entities.SaveChanges();
             }

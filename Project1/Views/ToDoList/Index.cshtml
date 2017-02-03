@@ -29,7 +29,7 @@
     {
     <tr>
         <td>
-            @Html.ActionLink(item.Name, "/Item/Index")
+            @Html.ActionLink(item.Name, "../Item/Index", new { id = item.ToDoListID })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsComplete)

@@ -48,7 +48,6 @@ namespace Project1.Controllers
         }
 
         // POST: ToDoList/Edit/5
-        //NOT IMPLEMENTED
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
