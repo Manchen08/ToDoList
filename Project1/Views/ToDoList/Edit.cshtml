@@ -45,8 +45,9 @@
                     @*<input class="form-control checkbox" type="checkbox" name="categories" value="@cat.CategoryID" />@cat.Name<br />*@
                     <label>@cat.Name</label>@Html.CheckBox(cat.CategoryID.ToString(), new { @class = "form-control" });
                 }
+                <br />
                 <p>
-                    @Html.ActionLink("Create New", "../Category/Create")
+                    @Html.ActionLink("Create New Category", "../Category")
                 </p>
             </div>
         </div>
