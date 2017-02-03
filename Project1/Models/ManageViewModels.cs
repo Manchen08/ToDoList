@@ -86,6 +86,6 @@ namespace Project1.Models
     public class ToDoListEditViewModel
     {
         public DBConnect.ToDoList list { get; set; }
-        public IEnumerable<DBConnect.Category> categories { get; set; }
+        public IEnumerable<DBConnect.Category> Categories { get; set; }
     }
 }

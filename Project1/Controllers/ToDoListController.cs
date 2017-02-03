@@ -41,7 +41,7 @@ namespace Project1.Controllers
             var list = db.getListById(id);
             Project1.Models.ToDoListEditViewModel editModel = new Models.ToDoListEditViewModel();
             editModel.list = db.getListById(id);
-            editModel.categories = db.getAllCategories().ToList();
+            editModel.Categories = db.getAllCategories().ToList();
 
             return View(editModel);
 

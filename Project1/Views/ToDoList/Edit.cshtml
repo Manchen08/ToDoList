@@ -37,14 +37,17 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => Model.categories, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => Model.Categories, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @foreach (var cat in Model.categories)
+                @foreach (var cat in Model.Categories)
                 {
                    
                     @*<input class="form-control checkbox" type="checkbox" name="categories" value="@cat.CategoryID" />@cat.Name<br />*@
                     <label>@cat.Name</label>@Html.CheckBox(cat.CategoryID.ToString(), new { @class = "form-control" });
                 }
+                <p>
+                    @Html.ActionLink("Create New", "../Category/Create")
+                </p>
             </div>
         </div>
         <div class="form-group">

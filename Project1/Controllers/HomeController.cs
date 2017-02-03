@@ -10,7 +10,7 @@ namespace Project1.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("../ToDoList/Index");
         }
 
         public ActionResult About()
