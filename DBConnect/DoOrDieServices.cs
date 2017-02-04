@@ -134,14 +134,16 @@ namespace DBConnect
             ToDoList list = entities.ToDoLists.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId);
             return list;
         }*/
-        public ToDoList getListByCategory(int listId, int catId)
+        public IEnumerable<ToDoList> getListByCategory(int catId)
         {
-            ToDoList testListCat = null;
+            IEnumerable<ToDoList> result = null;
             using (var entities = new Project1ToDoEntities())
             {
                 try
                 {
-                    testListCat = entities.ToDoList.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId).First();
+                    result = entities.ToDoLists.Where(list =>
+                        list.ToDoListCategories.Where(cat => cat.Category.CategoryID == catId).Count() > 0
+                        ).ToList();
                 }
                 catch (Exception)
                 {
@@ -149,7 +151,8 @@ namespace DBConnect
                     Debug.WriteLine("Not Found, ignore.");
                 }
             }
-            return testListCat;
+            //IEnumerable<ToDoList> lists = entities.ToDoLists.ToList();
+            return result;
         }
         #endregion ToDoLists
 

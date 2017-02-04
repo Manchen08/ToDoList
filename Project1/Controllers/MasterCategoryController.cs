@@ -13,11 +13,10 @@ namespace Project1.Controllers
         // GET: MasterCategory
         public ActionResult Index()
         {
-            int listId = 0;
             int catId = 0;
 
             //return lists with these CategoryID's checked
-            IEnumerable<DBConnect.ToDoList> lists = db.getListByCategory(listId, catId);
+            IEnumerable<DBConnect.ToDoList> lists = db.getListByCategory(catId);
             //return final view of these lists
             return View(lists);
 
