@@ -56,13 +56,11 @@ namespace Project1.Controllers
             Debug.WriteLine(collection.GetValues("list.categories"));
             var list = db.getListById(id);
 
-            int catCount = db.getAllCategories().Count();
-            for (int i = 1; i <= catCount; i++)
+            var categories = db.getAllCategories();
+            foreach (var cat in categories)
             {
-
-                DBConnect.Category cat = db.getCategoryById(i);
-                bool isChecked = collection.Get(i.ToString()).Contains("true");
-                db.updateListCategoriesById(id, i, isChecked);
+                bool isChecked = collection.Get(cat.CategoryID.ToString()).Contains("true");
+                db.updateListCategoriesById(id, cat.CategoryID, isChecked);
             }
 
             db.updateListById(id, collection.Get("list.Name"));
