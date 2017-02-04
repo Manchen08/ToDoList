@@ -44,6 +44,7 @@
                    
                     @*<input class="form-control checkbox" type="checkbox" name="categories" value="@cat.CategoryID" />@cat.Name<br />*@
                     <label>@cat.Name</label>@Html.CheckBox(cat.CategoryID.ToString(), new { @class = "form-control" });
+                    @*<input type="checkbox" value="@cat.CategoryID" /><label>@cat.Name</label>*@
                 }
                 <br />
                 <p>
