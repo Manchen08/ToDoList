@@ -127,9 +127,33 @@ namespace DBConnect
             }
 
         }
+
+        /*public ToDoList getListByCategory(int listId, int catId)
+        {
+            var entities = new Project1ToDoEntities();
+            ToDoList list = entities.ToDoLists.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId);
+            return list;
+        }*/
+        public ToDoList getListByCategory(int listId, int catId)
+        {
+            ToDoList testListCat = null;
+            using (var entities = new Project1ToDoEntities())
+            {
+                try
+                {
+                    testListCat = entities.ToDoList.Where(x => x.Category_Id == catId && x.ToDoList_Id == listId).First();
+                }
+                catch (Exception)
+                {
+
+                    Debug.WriteLine("Not Found, ignore.");
+                }
+            }
+            return testListCat;
+        }
         #endregion ToDoLists
 
-        #region Items
+                #region Items
         public IEnumerable<Item> getItemByListId(int id)
         {
             using (var entities = new Project1ToDoEntities())
