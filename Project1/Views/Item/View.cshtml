@@ -10,7 +10,7 @@
 <h2>View</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { id = ViewBag.ID, name = "New Item" } )
+    @Html.ActionLink("Create New", "Create", new { id = ViewBag.ID} )
 </p>
 <table class="table">
     <tr>
@@ -32,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.IsComplete)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
         </td>
     </tr>

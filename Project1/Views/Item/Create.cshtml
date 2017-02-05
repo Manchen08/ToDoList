@@ -18,9 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.IsComplete)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToDoList.Name)
-        </th>
         <th></th>
     </tr>
 
@@ -33,11 +30,10 @@
             @Html.DisplayFor(modelItem => item.IsComplete)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ToDoList.Name)
+            @*@Html.DisplayFor(modelItem => item.ToDoList.Name)*@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
         </td>
     </tr>

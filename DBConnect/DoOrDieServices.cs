@@ -13,7 +13,7 @@ namespace DBConnect
     public class DoOrDieServices
     {
         #region ToDoLists
-        //
+        
         public void createList(string name)
         {
             using (var entities = new Project1ToDoEntities())
@@ -138,10 +138,10 @@ namespace DBConnect
         {
             var db = new Project1ToDoEntities();
 
-
             var result = db.ToDoLists.Where(list =>
                 list.ToDoListCategories.Where(cat => cat.Category.CategoryID == catId).Count() > 0
                 ).ToList();
+
             return result;
         }
         #endregion ToDoLists

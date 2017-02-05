@@ -24,31 +24,16 @@ namespace Project1.Controllers
             IEnumerable<DBConnect.Item> lists = db.getItemByListId(id);
             return View(lists);
         }
-        public ActionResult View(int id)
-        {
-            Debug.WriteLine("Entering Index");
-            var itemsView = new Models.ToDoListItemsViewModel();
-            itemsView.list = db.getListById(id);
-            itemsView.items = db.getItemByListId(id);
-            return View(itemsView);
-        }
 
         // get: item/create
-        public ActionResult Create(int id, string name)
+        public ActionResult Create(int id)
         {
+            string name = "New Item";
             Debug.WriteLine("Entering Create");
             db.createItem(id, name);
-            IEnumerable<DBConnect.Item> lists = db.getItemByListId(id);
-            return View(lists);
-        }
-       
-        
-        // GET: Item/Edit/5
-        public ActionResult Edit(int id)
-        {
-            Debug.WriteLine("Entering GET edit");
-            var list = db.getItemByListId(id);
-            return View(list);
+            return Redirect(@Request.UrlReferrer.ToString());
+            //IEnumerable<DBConnect.Item> lists = db.getItemByListId(id);
+            //return View(lists);
         }
 
         // POST: Item/Create
@@ -67,6 +52,22 @@ namespace Project1.Controllers
             }
         }
 
+        public ActionResult View(int id)
+        {
+            Debug.WriteLine("Entering Index");
+            var itemsView = new Models.ToDoListItemsViewModel();
+            itemsView.list = db.getListById(id);
+            itemsView.items = db.getItemByListId(id);
+            return View(itemsView);
+        }
+        
+        // GET: Item/Edit/5
+        public ActionResult Edit(int id)
+        {
+            Debug.WriteLine("Entering GET edit");
+            var list = db.getItemByListId(id);
+            return View(list);
+        }
 
         // POST: Item/Edit/5
         [HttpPost]
@@ -89,7 +90,7 @@ namespace Project1.Controllers
         {
             Debug.WriteLine("Entering GET Delete");
             db.deleteItemByItemId(id);
-            return RedirectToAction("Index");
+            return Redirect(@Request.UrlReferrer.ToString());
         }
 
         // POST: Item/Delete/5
