@@ -10,7 +10,7 @@
 <h2>@Model.list.Name</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { id = ViewBag.ID} )
+    @Html.ActionLink("Add New Item", "Create", new { id = ViewBag.ID} )
 </p>
 <table class="table">
     <tr>
@@ -32,10 +32,15 @@
             @Html.DisplayFor(modelItem => item.IsComplete)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID, listId=Model.list.ToDoListID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID }, new { onclick = "return confirm('Are you sure you want to delete this item?')" })
         </td>
     </tr>
 }
-
+    
 </table>
+
+<div>
+    @Html.ActionLink("Back", null, null, null, new { href = Request.UrlReferrer }) | 
+    @Html.ActionLink("Back to To Do Lists", "../ToDoList/Index")
+</div>
