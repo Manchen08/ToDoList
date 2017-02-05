@@ -25,7 +25,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID }, new { onclick = "return confirm('Are you sure you want to delete this category?')" }) |
             @Html.ActionLink("Search", "../ToDoList/Search", new { id = item.CategoryID })
         </td>
     </tr>
