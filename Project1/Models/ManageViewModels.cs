@@ -88,4 +88,10 @@ namespace Project1.Models
         public DBConnect.ToDoList list { get; set; }
         public IEnumerable<DBConnect.Category> Categories { get; set; }
     }
+
+    public class ToDoListItemsViewModel
+    {
+        public DBConnect.ToDoList list { get; set; }
+        public IEnumerable<DBConnect.Item> items { get; set; }
+    }
 }

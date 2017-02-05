@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New List", "Create" ) |
     @Html.ActionLink("Create New Category", "../Category") |
-    @Html.ActionLink("Search By Category", "../Category")
+    @Html.ActionLink("Search By Category", "../MasterCategory/Index")
 </p>
 
 <table class="table">
@@ -32,10 +32,10 @@
     {
     <tr>
         <td>
-            @Html.ActionLink(item.Name, "../Item/Index", new { id = item.ToDoListID })
+            @Html.ActionLink(item.Name, "../Item/View", new { id = item.ToDoListID })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsComplete)
+            @item.IsComplete.ToString();
         </td>
         <td>
             @foreach (var cat in item.ToDoListCategories)

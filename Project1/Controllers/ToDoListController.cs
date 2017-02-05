@@ -67,6 +67,13 @@ namespace Project1.Controllers
             
         }
 
+        public ActionResult Search(int id)
+        {
+            Debug.WriteLine("Entering Search id={0}", id);
+            var lists = db.getListByCategory(id);
+            return View(lists);
+        }
+
         // GET: ToDoList/Delete/5
         public ActionResult Delete(int id)
         {

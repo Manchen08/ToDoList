@@ -1,0 +1,41 @@
+﻿@model Project1.Models.ToDoListItemsViewModel
+
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.ID = Model.list.ToDoListID;
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { id = ViewBag.ID, name = "New Item" } )
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Completed
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.items) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsComplete)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
+        </td>
+    </tr>
+}
+
+</table>

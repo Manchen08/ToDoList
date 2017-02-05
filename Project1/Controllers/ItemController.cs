@@ -18,27 +18,28 @@ namespace Project1.Controllers
 
         // GET: Item
         //ex URL localhost:XXXXX/Item or //localhost:XXXXX/Item/Index
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             Debug.WriteLine("Entering Index");
-            int listId = 1;
-            IEnumerable<DBConnect.Item> lists = db.getItemByListId(listId);
+            IEnumerable<DBConnect.Item> lists = db.getItemByListId(id);
             return View(lists);
         }
+        public ActionResult View(int id)
+        {
+            Debug.WriteLine("Entering Index");
+            var itemsView = new Models.ToDoListItemsViewModel();
+            itemsView.list = db.getListById(id);
+            itemsView.items = db.getItemByListId(id);
+            return View(itemsView);
+        }
 
-        //// get: item/details/5
-        //  public actionresult details(int id)
-        //  {
-        //      return view();
-        //  }
-  
-
-       // get: item/create
-        public ActionResult Create(int id)
+        // get: item/create
+        public ActionResult Create(int id, string name)
         {
             Debug.WriteLine("Entering Create");
-            IEnumerable<DBConnect.Item> view = db.getItemByListId(id);
-            return View(view);
+            db.createItem(id, name);
+            IEnumerable<DBConnect.Item> lists = db.getItemByListId(id);
+            return View(lists);
         }
        
         
