@@ -35,6 +35,7 @@
 }
 
 <div>
+    @Html.ActionLink("Back", null, null, null, new { href = Request.UrlReferrer }) | 
     @Html.ActionLink("Back to Category List", "Index")
 </div>
 

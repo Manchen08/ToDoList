@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Lists</h2>
+<h2>Search By Category</h2>
 <p>
     @Html.ActionLink("Create New List", "Create") |
     @Html.ActionLink("Create New Category", "../Category") |
@@ -52,3 +52,8 @@
     }
 
 </table>
+
+<div>
+    @Html.ActionLink("Back", null, null, null, new { href = Request.UrlReferrer }) | 
+    @Html.ActionLink("Back to To Do Lists", "../ToDoList/Index")
+</div>

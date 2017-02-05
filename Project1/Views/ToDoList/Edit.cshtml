@@ -58,7 +58,8 @@
 }
 
 <div>
-    @Html.ActionLink("Back to ToDoLists", "Index")
+    @Html.ActionLink("Back", null, null, null, new { href = Request.UrlReferrer }) | 
+    @Html.ActionLink("Back to To Do Lists", "Index")
 </div>
 
 @section Scripts {

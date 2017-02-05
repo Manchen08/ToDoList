@@ -71,11 +71,11 @@ namespace Project1.Controllers
 
         // POST: Item/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, string url)
         {
             Debug.WriteLine("Entering GET post edit");
             db.updateItemByItemId(id, collection.Get("Name"));
-            return Redirect(@Request.UrlReferrer.ToString());
+            return Redirect(url);
         }
 
         // GET: Item/Delete/5
