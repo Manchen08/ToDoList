@@ -13,7 +13,6 @@ namespace Project1.Controllers
 {
     public class ToDoListController : Controller
     {
-        static DataTable dt = new DataTable();
         DoOrDieServices db = new DoOrDieServices();
 
         // GET: ToDoList
@@ -76,21 +75,6 @@ namespace Project1.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: ToDoList/Delete/5
-        //NOT IMPLEMENTED
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
