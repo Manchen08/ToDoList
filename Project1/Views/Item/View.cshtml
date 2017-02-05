@@ -32,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.IsComplete)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID, listId=Model.list.ToDoListID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
         </td>
     </tr>

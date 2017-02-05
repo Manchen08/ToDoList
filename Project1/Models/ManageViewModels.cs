@@ -94,4 +94,10 @@ namespace Project1.Models
         public DBConnect.ToDoList list { get; set; }
         public IEnumerable<DBConnect.Item> items { get; set; }
     }
+
+    public class EditItemViewModel
+    {
+        public DBConnect.ToDoList list { get; set; }
+        public DBConnect.Item item { get; set; }
+    }
 }

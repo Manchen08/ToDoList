@@ -1,4 +1,4 @@
-﻿@model DBConnect.Item
+﻿@model Project1.Models.EditItemViewModel 
 
 @{
     ViewBag.Title = "Edit";
@@ -16,13 +16,14 @@
         <h4>Item</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ItemID)
+        @Html.HiddenFor(model => model.item.ItemID)
+        @Html.HiddenFor(model => model.list.ToDoListID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.item.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.item.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.item.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 

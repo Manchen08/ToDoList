@@ -62,11 +62,13 @@ namespace Project1.Controllers
         }
         
         // GET: Item/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int listId)
         {
             Debug.WriteLine("Entering GET edit");
-            var item = db.getItemById(id);
-            return View(item);
+            var editView = new Models.EditItemViewModel();
+            editView.item = db.getItemById(id);
+            editView.list = db.getListById(listId);
+            return View(editView);
         }
 
         // POST: Item/Edit/5
@@ -74,8 +76,9 @@ namespace Project1.Controllers
         public ActionResult Edit(int id, FormCollection collection)
         {
             Debug.WriteLine("Entering GET post edit");
-            db.updateItemByItemId(id, collection.Get("Name"));
-            return Redirect(@Request.UrlReferrer.ToString());
+            db.updateItemByItemId(id, collection.Get("item.Name"));
+            string listID = collection.Get("list.ToDoListID");
+            return RedirectToAction(listID, "Item/View");
         }
 
         // GET: Item/Delete/5
