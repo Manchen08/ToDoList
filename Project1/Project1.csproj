@@ -289,6 +289,7 @@
     <Content Include="Views\MasterCategory\Index.cshtml" />
     <Content Include="Views\ToDoList\Search.cshtml" />
     <Content Include="Views\Item\View.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

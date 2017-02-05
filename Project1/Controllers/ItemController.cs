@@ -65,24 +65,17 @@ namespace Project1.Controllers
         public ActionResult Edit(int id)
         {
             Debug.WriteLine("Entering GET edit");
-            var list = db.getItemByListId(id);
-            return View(list);
+            var item = db.getItemById(id);
+            return View(item);
         }
 
         // POST: Item/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Debug.WriteLine("Entering GET post edit");
+            db.updateItemByItemId(id, collection.Get("Name"));
+            return Redirect(@Request.UrlReferrer.ToString());
         }
 
         // GET: Item/Delete/5

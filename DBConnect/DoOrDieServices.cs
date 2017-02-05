@@ -155,6 +155,23 @@ namespace DBConnect
             }
         }
 
+        public Item getItemById(int id)
+        {
+            var entities = new Project1ToDoEntities();
+            Item item = entities.Items.Where(x => x.ItemID == id).FirstOrDefault();
+            return item;
+    }
+
+        public void updateItemByItemId(int id, string name)
+        {
+            using (var entities = new Project1ToDoEntities())
+            {
+                Item item = entities.Items.Where(x => x.ItemID == id).FirstOrDefault();
+                item.Name = name;
+                entities.SaveChanges();
+            }
+        }
+
         public void deleteItemByItemId(int id)
         {
             using (var entities = new Project1ToDoEntities())

@@ -7,7 +7,7 @@
     ViewBag.ID = Model.list.ToDoListID;
 }
 
-<h2>View</h2>
+<h2>@Model.list.Name</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", new { id = ViewBag.ID} )
